@@ -9,7 +9,7 @@ const config = require('./webpack.config.development');
 const app = express();
 const compiler = webpack(config);
 
-const PORT = 3000;
+const PORT = 8080;
 
 app.use(require('webpack-dev-middleware')(compiler, {
   publicPath: config.output.publicPath,
@@ -22,7 +22,7 @@ app.use(require('webpack-dev-middleware')(compiler, {
 app.use(require('webpack-hot-middleware')(compiler));
 
 app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, 'app', 'hot-dev-app.html'));
+  res.sendFile(path.join(__dirname, 'src', 'renderer', 'index-hot.html'));
 });
 
 app.listen(PORT, 'localhost', err => {

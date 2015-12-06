@@ -16,7 +16,7 @@ config.output.publicPath = 'http://localhost:8080/dist/';
 
 config.module.loaders.push(
   {test: /\.json$/, loaders: ['json-loader']},
-  {test: /\.css$/, loaders: ['style', 'css?modules', 'postcss']}
+  {test: /\.css$/, loaders: ['style', 'css?modules&sourceMap&localIdentName=[name]-[local]', 'postcss']}
 );
 
 config.plugins.push(

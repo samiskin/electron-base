@@ -9,7 +9,8 @@ module.exports = {
     libraryTarget: 'commonjs2'
   },
   resolve: {
-    modulesDirectories: ['node_modules', 'components', 'src', 'lib'],
+    root: path.join(__dirname, 'src'),
+    modulesDirectories: ['node_modules', 'components', 'lib', 'renderer', 'browser'],
     extensions: ['', '.js'],
     packageMains: ['webpack', 'browser', 'web', 'browserify', ['jam', 'main'], 'main']
   },

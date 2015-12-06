@@ -6,9 +6,6 @@ Simply run `npm install`
 
 ## Run
 
-Run these two commands __simultaneously__ in different console tabs.
-
-```bash
-npm run hot-server
-npm run start-hot
-```
+Run `npm run watch` to begin the webpack watching of the browser files as well
+as the hot loading of the renderer files. Once the electron files have been
+compiled, run `npm start` in a __separate terminal__ to start the app.

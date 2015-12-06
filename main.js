@@ -1,7 +1,6 @@
 
 'use strict';
 require('babel-register');
-const webpack = require('webpack');
 const app = require('app');
 const Application = require('./src/browser/application');
 

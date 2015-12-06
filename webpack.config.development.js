@@ -3,6 +3,9 @@
 const webpack = require('webpack');
 const webpackTargetElectronRenderer = require('webpack-target-electron-renderer');
 const baseConfig = require('./webpack.config.base');
+const autoprefixer = require('autoprefixer');
+const precss = require('precss');
+const postcssImport = require('postcss-import');
 
 const config = Object.create(baseConfig);
 
@@ -12,7 +15,19 @@ config.entry = [
   'webpack-hot-middleware/client?path=http://localhost:8080/__webpack_hmr',
   './src/entry'
 ];
-config.output.publicPath = 'http://localhost:8080/dist/';
+config.output.publicPath = 'http://localhost:8080/build/';
+
+
+config.postcss = function(webpackDependency) {
+  return [
+    postcssImport({
+      addDependencyTo: webpackDependency,
+      path: '/'
+    }),
+    autoprefixer,
+    precss
+  ];
+},
 
 config.module.loaders.push(
   {test: /\.json$/, loaders: ['json-loader']},

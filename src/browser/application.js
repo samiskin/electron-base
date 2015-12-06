@@ -1,6 +1,5 @@
 import url from 'url';
 import BrowserWindow from 'browser-window';
-import wat from 'test.js';
 
 export default class Application {
 
@@ -9,8 +8,6 @@ export default class Application {
       width: 1024,
       height: 728
     });
-
-    console.log(wat());
 
     let htmlFile = process.env.HOT ? `index-hot.html` : `index.html`;
     this.loadFileUrl(mainWindow, `${process.cwd()}/static/${htmlFile}`);

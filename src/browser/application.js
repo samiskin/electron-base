@@ -1,4 +1,6 @@
-import { BrowserWindow } from 'electron';
+import url from 'url';
+import BrowserWindow from 'browser-window';
+import wat from 'test.js';
 
 export default class Application {
 
@@ -8,8 +10,21 @@ export default class Application {
       height: 728
     });
 
+    console.log(wat());
+
     let htmlFile = process.env.HOT ? `index-hot.html` : `index.html`;
-    mainWindow.loadURL(`file://${__dirname}/../renderer/${htmlFile}`);
+    this.loadFileUrl(mainWindow, `${process.cwd()}/static/${htmlFile}`);
+  }
+
+  loadFileUrl(wnd, pathname, params = {}) {
+    let targetUrl = url.format({
+      protocol: 'file',
+      pathname: pathname,
+      slashes: true,
+      query: {params: JSON.stringify(params)}
+    });
+
+    wnd.loadUrl(targetUrl);
   }
 
 }

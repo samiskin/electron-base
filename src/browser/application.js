@@ -21,7 +21,7 @@ export default class Application {
       query: {params: JSON.stringify(params)}
     });
 
-    wnd.loadUrl(targetUrl);
+    wnd.loadURL(targetUrl);
   }
 
 }

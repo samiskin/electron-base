@@ -1,5 +1,3 @@
-const electron = require('electron-prebuilt');
-const proc = require('child_process');
 const webpack = require('webpack');
 const electronConfig = require('./webpack.config.electron');
 const WebpackDevServer = require('webpack-dev-server');
@@ -21,10 +19,6 @@ electronCompiler.watch(
     console.log(`Recompiled Electron files`)
   }
 );
-
-//  const child = proc.spawn(electron, [`${__dirname}/build/main.js`], {env: {HOT: 1}});
-
-
 
 const path = require('path');
 const express = require('express');

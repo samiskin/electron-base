@@ -1,10 +1,14 @@
+/* eslint-disable no-var */
+
 'use strict';
 
 var path = require('path');
 var webpack = require('webpack');
-var pkg = require('./package.json');
+// var pkg = require('./package.json');
 var fs = require('fs');
-
+const autoprefixer = require('autoprefixer');
+const precss = require('precss');
+const postcssImport = require('postcss-import');
 
 var nodeModules = {};
 fs.readdirSync('node_modules')
@@ -18,49 +22,50 @@ fs.readdirSync('node_modules')
 module.exports = {
 
   entry: [
-    'webpack-dev-server/client?http://localhost:8080',
-    'webpack/hot/dev-server',
-    './src/entry.js'
+    './src/app.js'
   ],
 
   output: {
-    path: './public/built',
+    path: './',
     filename: 'bundle.js',
     publicPath: 'http://localhost:8080/built/'
   },
 
+  // target: "atom",
+
   resolve: {
     root: path.join(__dirname, 'src'),
-    modulesDirectories: ['node_modules','components', 'src', 'lib'],
-    extensions: ['', '.js'],
-    alias: {
-      'React': 'react/addons'
-    }
+    modulesDirectories: ['node_modules', 'components', 'src', 'lib'],
+    extensions: ['', '.js']
+  },
+
+  postcss: function(webpackDependency) {
+    return [
+      postcssImport({
+        addDependencyTo: webpackDependency,
+        path: '/'
+      }),
+      autoprefixer,
+      precss
+    ];
   },
 
   plugins: [
-    new webpack.HotModuleReplacementPlugin(),
-    new webpack.ProvidePlugin({
-      'React': 'react/addons',
-      'keyMirror': 'keymirror'
-    }),
-    new webpack.IgnorePlugin(new RegExp("^(fs|ipc)$")),
+    new webpack.IgnorePlugin(new RegExp('^(fs|ipc)$')),
     new webpack.BannerPlugin('require("source-map-support").install();',
-    {raw: true, entryOnly: false })
+      {raw: true, entryOnly: false })
   ],
 
   module: {
     loaders: [
-      {test: /\.jsx?$/, loaders: ['react-hot', 'babel?cacheDirectory&blacklist[]=validation.react&optional[]=es7.classProperties'], exclude: /node_modules/},
+      {test: /\.jsx?$/, loaders: ['react-hot', 'babel'], exclude: /node_modules/},
       {test: /\.json$/, loaders: ['json-loader']},
-      {test: /\.less$/, loaders: ['style', 'css', 'postcss', 'less']},
-      {test: /\.scss$/, loaders: ['style', 'css', 'postcss', 'sass']},
-      {test: /\.css$/, loaders: ['style', 'css', 'postcss']}
+      {test: /\.css$/, loaders: ['style', 'css?modules', 'postcss']}
     ]
   },
 
   externals: nodeModules,
 
-  devtool: "sourcemap"
+  devtool: 'source-map'
 
-}
+};

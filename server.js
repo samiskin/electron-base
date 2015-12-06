@@ -12,11 +12,10 @@ electronCompiler.watch(
   }, function(err, stats) {
     if (err) {
       console.log(err);
-      console.log(stats);
       return;
     }
 
-    console.log(`Recompiled Electron files`)
+    console.log(`Recompiled Electron files in ${stats.endTime - stats.startTime}ms`);
   }
 );
 
@@ -33,7 +32,8 @@ app.use(require('webpack-dev-middleware')(compiler, {
   publicPath: devConfig.output.publicPath,
   stats: {
     colors: true
-  }
+  },
+  noInfo: true
 }));
 
 

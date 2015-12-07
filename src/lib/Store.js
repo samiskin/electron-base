@@ -1,7 +1,8 @@
 import _ from 'lodash';
-import {createStore, applyMiddleware} from 'redux';
+import {createStore, applyMiddleware, compose} from 'redux';
 import createLogger from 'redux-logger';
 import thunk from 'redux-thunk';
+import DevTools from 'DevTools.jsx';
 // import {devTools} from 'redux-devtools';
 
 /*
@@ -31,8 +32,11 @@ class Store {
       duration: true,
       actionTransformer: (action) => _.assign({}, action, {type: action.type.toString()})
     });
-    let createStoreWithMiddleware = applyMiddleware(thunk, logger)(createStore);
-    this.store = createStoreWithMiddleware(this.reducer.bind(this));
+    let finalCreateStore = compose(
+      applyMiddleware(thunk, logger),
+      DevTools.instrument()
+    )(createStore);
+    this.store = finalCreateStore(this.reducer.bind(this));
   }
 
   initializeStoreMap() {

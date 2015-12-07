@@ -9,8 +9,18 @@ export default class Application {
       height: 728
     });
 
+    mainWindow.toggleDevTools();
+
     let htmlFile = process.env.HOT ? `index-hot.html` : `index.html`;
-    this.loadFileUrl(mainWindow, `${process.cwd()}/static/${htmlFile}`);
+    // this.loadFileUrl(
+    //   mainWindow,
+    //   `${process.cwd()}/static/${htmlFile}`,
+    //   { route: '/home' }
+    // );
+
+    let targetUrl = `file://${process.cwd()}/static/${htmlFile}`;
+    console.log(`Loading ${targetUrl}`);
+    mainWindow.loadURL(targetUrl);
   }
 
   loadFileUrl(wnd, pathname, params = {}) {
@@ -18,7 +28,7 @@ export default class Application {
       protocol: 'file',
       pathname: pathname,
       slashes: true,
-      query: {params: JSON.stringify(params)}
+      query: {windowParams: JSON.stringify(params)}
     });
 
     wnd.loadURL(targetUrl);

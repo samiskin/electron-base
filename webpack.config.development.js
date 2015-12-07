@@ -10,10 +10,12 @@ const postcssImport = require('postcss-import');
 const config = Object.create(baseConfig);
 
 config.debug = true;
+
 config.devtool = 'cheap-module-eval-source-map';
+
 config.entry = [
   'webpack-hot-middleware/client?path=http://localhost:8080/__webpack_hmr',
-  './src/entry'
+  './src/renderer/index'
 ];
 config.output.publicPath = 'http://localhost:8080/build/';
 
@@ -31,7 +33,7 @@ config.postcss = function(webpackDependency) {
 
 config.module.loaders.push(
   {test: /\.json$/, loaders: ['json-loader']},
-  {test: /\.css$/, loaders: ['style', 'css?modules&sourceMap&localIdentName=[name]-[local]', 'postcss']}
+  {test: /\.css$/, loaders: ['style', 'css?modules&sourceMap&localIdentName=[name]-[local]-[hash:base64:5]!', 'postcss']}
 );
 
 config.plugins.push(

@@ -1,6 +1,5 @@
 const webpack = require('webpack');
 const electronConfig = require('./webpack.config.electron');
-const WebpackDevServer = require('webpack-dev-server');
 
 
 const electronCompiler = webpack(electronConfig);
@@ -19,16 +18,17 @@ electronCompiler.watch(
   }
 );
 
+
 const path = require('path');
 const express = require('express');
 const devConfig = require('./webpack.config.development');
 
 const app = express();
-const compiler = webpack(devConfig);
+const rendererCompiler = webpack(devConfig);
 
 const PORT = 8080;
 
-app.use(require('webpack-dev-middleware')(compiler, {
+app.use(require('webpack-dev-middleware')(rendererCompiler, {
   publicPath: devConfig.output.publicPath,
   stats: {
     colors: true
@@ -37,7 +37,7 @@ app.use(require('webpack-dev-middleware')(compiler, {
 }));
 
 
-app.use(require('webpack-hot-middleware')(compiler));
+app.use(require('webpack-hot-middleware')(rendererCompiler));
 
 app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, 'static', 'index-hot.html'));

@@ -26,6 +26,7 @@ config.plugins.push(
   new webpack.BannerPlugin('require("source-map-support").install();',
     { raw: true, entryOnly: false })
 );
+config.externals.push('electron');
 
 
 module.exports = config;

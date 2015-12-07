@@ -12,15 +12,11 @@ export default class Application {
     mainWindow.toggleDevTools();
 
     let htmlFile = process.env.HOT ? `index-hot.html` : `index.html`;
-    // this.loadFileUrl(
-    //   mainWindow,
-    //   `${process.cwd()}/static/${htmlFile}`,
-    //   { route: '/home' }
-    // );
-
-    let targetUrl = `file://${process.cwd()}/static/${htmlFile}`;
-    console.log(`Loading ${targetUrl}`);
-    mainWindow.loadURL(targetUrl);
+    this.loadFileUrl(
+      mainWindow,
+      `${process.cwd()}/static/${htmlFile}`,
+      { route: '/mars' }
+    );
   }
 
   loadFileUrl(wnd, pathname, params = {}) {

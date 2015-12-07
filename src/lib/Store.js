@@ -3,7 +3,7 @@ import {createStore, applyMiddleware, compose} from 'redux';
 import createLogger from 'redux-logger';
 import thunk from 'redux-thunk';
 import DevTools from 'DevTools.jsx';
-// import {devTools} from 'redux-devtools';
+import AppStore from 'stores/AppStore';
 
 /*
    This class stores the main Redux Store and provides a wrapper
@@ -21,6 +21,7 @@ import DevTools from 'DevTools.jsx';
  */
 
 let stateStoreMap = {
+  app: AppStore
 };
 
 class Store {
@@ -32,6 +33,13 @@ class Store {
       duration: true,
       actionTransformer: (action) => _.assign({}, action, {type: action.type.toString()})
     });
+
+    let middleware = [thunk];
+    if (true) {// dev
+      middleware.push(logger);
+      middleware.push(require('redux-immutable-state-invariant')());
+    }
+
     let finalCreateStore = compose(
       applyMiddleware(thunk, logger),
       DevTools.instrument()

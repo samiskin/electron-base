@@ -11,7 +11,7 @@ module.exports = {
   resolve: {
     root: path.join(__dirname, 'src'),
     modulesDirectories: ['node_modules', 'components', 'browser', 'browser/components', 'lib', 'renderer', 'renderer/components'],
-    extensions: ['', '.js'],
+    extensions: ['', '.js', '.jsx'],
     packageMains: ['webpack', 'browser', 'web', 'browserify', ['jam', 'main'], 'main']
   },
   plugins: [
@@ -20,7 +20,14 @@ module.exports = {
   ],
   module: {
     loaders: [
-      {test: /\.jsx?$/, loaders: ['babel-loader'], exclude: /node_modules/}
+      {
+        test: /\.jsx?$/,
+        loader: 'babel',
+        query: {
+          cacheDirectory: true
+        },
+        exclude: /node_modules/
+      },
     ]
   }
 };

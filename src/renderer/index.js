@@ -2,8 +2,8 @@ import React from 'react';
 import { render } from 'react-dom';
 import { Router, Route, IndexRoute } from 'react-router';
 import App from 'App.jsx';
-import World from 'World.jsx';
-import Mars from 'Mars.jsx';
+import Main from 'Main.jsx';
+import Secondary from 'Secondary.jsx';
 import url from 'url';
 import createMemoryHistory from 'history/lib/createMemoryHistory';
 
@@ -17,8 +17,8 @@ let history = createMemoryHistory();
 render((
     <Router history={history}>
       <Route path="/" component={App}>
-        <IndexRoute component={World}/>
-        <Route path="/mars" component={Mars}/>
+        <Route path="/main" component={Main}/>
+        <Route path="/secondary" component={Secondary}/>
       </Route>
     </Router>
 ), reactHost);
@@ -26,4 +26,3 @@ render((
 if (global.windowSettings.route) {
   history.pushState(null, global.windowSettings.route);
 }
-

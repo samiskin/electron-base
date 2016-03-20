@@ -1,10 +1,11 @@
 import fs from 'fs';
+import app from 'app';
 
 
 class LocalStorage {
 
   constructor(location = null) {
-    this.storageLocation = location || `${process.cwd()}/static/storage.json`;
+    this.storageLocation = location || `${app.getPath('userData')}/state-backup.json`;
     try {
       this.storedData = JSON.parse(fs.readFileSync(this.storageLocation));
     } catch (e) {
@@ -30,6 +31,10 @@ class LocalStorage {
     }
   }
 
+  getAllKeys() {
+    return Object.keys(this.storedData);
+  }
+
 }
 
-export default new LocalStorage();
+export default LocalStorage;

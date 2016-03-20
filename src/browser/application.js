@@ -1,5 +1,6 @@
 import url from 'url';
 import BrowserWindow from 'browser-window';
+import Store from 'lib/Store';
 
 export default class Application {
 
@@ -9,17 +10,29 @@ export default class Application {
       height: 728
     });
 
-    mainWindow.toggleDevTools();
+    this.loadFileUrl({
+      wnd: mainWindow,
+      params: { route: '/main' }
+    });
 
-    let htmlFile = process.env.HOT ? `index-hot.html` : `index.html`;
-    this.loadFileUrl(
-      mainWindow,
-      `${process.cwd()}/static/${htmlFile}`,
-      { route: '/mars' }
-    );
+
+    let secondaryWindow = new BrowserWindow({
+      width: 512,
+      height: 1024
+    });
+
+    this.loadFileUrl({
+      wnd: secondaryWindow,
+      params: { route: '/secondary' }
+    });
   }
 
-  loadFileUrl(wnd, pathname, params = {}) {
+  loadFileUrl({wnd, pathname, params: params = {}}) {
+    if (!pathname) {
+      let htmlFile = process.env.HOT ? `index-hot.html` : `index.html`;
+      pathname = `${process.cwd()}/static/${htmlFile}`;
+    }
+
     let targetUrl = url.format({
       protocol: 'file',
       pathname: pathname,

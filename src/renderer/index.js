@@ -6,9 +6,7 @@ import Main from 'Main.jsx';
 import Secondary from 'Secondary.jsx';
 import url from 'url';
 import createMemoryHistory from 'history/lib/createMemoryHistory';
-
-const queryParams = url.parse(window.location.href, true).query;
-global.windowSettings = queryParams.windowParams ? JSON.parse(queryParams.windowParams) : {};
+import WindowSettings from 'window-settings';
 
 const reactHost = global.document.createElement('span');
 global.document.body.appendChild(reactHost);
@@ -23,6 +21,6 @@ render((
     </Router>
 ), reactHost);
 
-if (global.windowSettings.route) {
-  history.pushState(null, global.windowSettings.route);
+if (WindowSettings.route) {
+  history.pushState(null, WindowSettings.route);
 }

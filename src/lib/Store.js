@@ -4,6 +4,7 @@ import thunk from 'redux-thunk';
 import { electronEnhancer } from 'redux-electron-store';
 import React from 'react';
 import rootReducer from '../reducers';
+import WindowSettings from 'window-settings';
 
 let logger = createLogger({
   level: 'info',
@@ -12,7 +13,7 @@ let logger = createLogger({
 
 let enhancer = compose(
   applyMiddleware(thunk, logger),
-  electronEnhancer()
+  electronEnhancer({ sourceName: WindowSettings.route ? WindowSettings.route.substring(1) : undefined })
 );
 
 if (process.type === 'renderer' && !process.guestInstanceId) {

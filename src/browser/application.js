@@ -1,5 +1,5 @@
 import url from 'url';
-import BrowserWindow from 'browser-window';
+import { BrowserWindow } from 'electron';
 import Store from 'lib/Store';
 
 export default class Application {

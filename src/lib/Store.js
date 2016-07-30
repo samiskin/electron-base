@@ -1,7 +1,8 @@
 import { compose, createStore, applyMiddleware } from 'redux';
 import createLogger from 'redux-logger';
 import thunk from 'redux-thunk';
-import { electronEnhancer } from 'redux-electron-store';
+// import { electronEnhancer } from 'redux-electron-store';
+import { electronEnhancer } from 'utils';
 import React from 'react';
 import rootReducer from '../reducers';
 import WindowSettings from 'window-settings';

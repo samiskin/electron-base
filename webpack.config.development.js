@@ -3,8 +3,8 @@
 const webpack = require('webpack');
 const webpackTargetElectronRenderer = require('webpack-target-electron-renderer');
 const baseConfig = require('./webpack.config.base');
-const autoprefixer = require('autoprefixer');
-const precss = require('precss');
+// const autoprefixer = require('autoprefixer');
+// const precss = require('precss');
 const postcssImport = require('postcss-import');
 
 const config = Object.create(baseConfig);
@@ -26,8 +26,8 @@ config.postcss = function(webpackDependency) {
       addDependencyTo: webpackDependency,
       path: '/'
     }),
-    autoprefixer,
-    precss
+    // autoprefixer,
+    // precss
   ];
 },
 

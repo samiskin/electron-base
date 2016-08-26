@@ -5,12 +5,12 @@ export const DECREMENT_COUNTER = 'DECREMENT_COUNTER';
 
 class Actions {
 
-  increment() {
-    Store.dispatch({type: INCREMENT_COUNTER});
+  increment(amount = 1) {
+    Store.dispatch({type: INCREMENT_COUNTER, amount});
   }
 
-  decrement() {
-    Store.dispatch({type: DECREMENT_COUNTER});
+  decrement(amount = 1) {
+    Store.dispatch({type: DECREMENT_COUNTER, amount});
   }
 
 }

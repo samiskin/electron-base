@@ -13,7 +13,7 @@ let logger = createLogger({
 });
 
 let enhancer = compose(
-  applyMiddleware(thunk, logger),
+  applyMiddleware(thunk),
   electronEnhancer({ sourceName: WindowSettings.route ? WindowSettings.route.substring(1) : undefined })
 );
 

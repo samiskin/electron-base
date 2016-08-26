@@ -1,6 +1,7 @@
 import url from 'url';
 import { BrowserWindow } from 'electron';
 import Store from 'lib/Store';
+import Actions from 'actions/Actions';
 
 export default class Application {
 
@@ -14,7 +15,6 @@ export default class Application {
       wnd: mainWindow,
       params: { route: '/main' }
     });
-
 
     let secondaryWindow = new BrowserWindow({
       width: 512,
